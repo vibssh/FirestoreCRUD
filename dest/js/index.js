@@ -5564,7 +5564,7 @@ var Query = /** @class */ (function () {
                 deferred.resolve(snapshot);
             }
         };
-        this.on(eventType, onceCallback, 
+        this.on(eventType, onceCallback,
         /*cancel=*/ function (err) {
             _this.off(eventType, onceCallback);
             if (ret.cancel)
@@ -6220,22 +6220,22 @@ var OperationSource = /** @class */ (function () {
      * @type {!OperationSource}
      */
     OperationSource.User = new OperationSource(
-    /*fromUser=*/ true, false, null, 
+    /*fromUser=*/ true, false, null,
     /*tagged=*/ false);
     /**
      * @const
      * @type {!OperationSource}
      */
-    OperationSource.Server = new OperationSource(false, 
-    /*fromServer=*/ true, null, 
+    OperationSource.Server = new OperationSource(false,
+    /*fromServer=*/ true, null,
     /*tagged=*/ false);
     /**
      * @param {string} queryId
      * @return {!OperationSource}
      */
     OperationSource.forServerTaggedQuery = function (queryId) {
-        return new OperationSource(false, 
-        /*fromServer=*/ true, queryId, 
+        return new OperationSource(false,
+        /*fromServer=*/ true, queryId,
         /*tagged=*/ true);
     };
     return OperationSource;
@@ -6264,8 +6264,8 @@ var AckUserWrite = /** @class */ (function () {
      * @param {!boolean} revert
      */
     function AckUserWrite(
-    /**@inheritDoc */ path, 
-    /**@inheritDoc */ affectedTree, 
+    /**@inheritDoc */ path,
+    /**@inheritDoc */ affectedTree,
     /**@inheritDoc */ revert) {
         this.path = path;
         this.affectedTree = affectedTree;
@@ -6749,8 +6749,8 @@ var Overwrite = /** @class */ (function () {
  */
 var Merge = /** @class */ (function () {
     function Merge(
-    /**@inheritDoc */ source, 
-    /**@inheritDoc */ path, 
+    /**@inheritDoc */ source,
+    /**@inheritDoc */ path,
     /**@inheritDoc */ children) {
         this.source = source;
         this.path = path;
@@ -6952,10 +6952,10 @@ var ViewCache = /** @class */ (function () {
      * @const
      * @type {ViewCache}
      */
-    ViewCache.Empty = new ViewCache(new CacheNode(ChildrenNode.EMPTY_NODE, 
-    /*fullyInitialized=*/ false, 
-    /*filtered=*/ false), new CacheNode(ChildrenNode.EMPTY_NODE, 
-    /*fullyInitialized=*/ false, 
+    ViewCache.Empty = new ViewCache(new CacheNode(ChildrenNode.EMPTY_NODE,
+    /*fullyInitialized=*/ false,
+    /*filtered=*/ false), new CacheNode(ChildrenNode.EMPTY_NODE,
+    /*fullyInitialized=*/ false,
     /*filtered=*/ false));
     return ViewCache;
 }());
@@ -9832,7 +9832,7 @@ var SyncTree = /** @class */ (function () {
                     // If a listen failed, kill all of the listeners here, not just the one that triggered the error.
                     // Note that this may need to be scoped to just this listener if we change permissions on filtered children
                     var error$$1 = errorForServerCode(status, query);
-                    return _this.removeEventRegistration(query, 
+                    return _this.removeEventRegistration(query,
                     /*eventRegistration*/ null, error$$1);
                 }
             }
@@ -9900,7 +9900,7 @@ var SyncTree = /** @class */ (function () {
         var syncPoint = this.syncPointTree_.get(queryPath);
         util.assert(syncPoint, "Missing sync point for query tag that we're tracking");
         var writesCache = this.pendingWriteTree_.childWrites(queryPath);
-        return syncPoint.applyOperation(operation, writesCache, 
+        return syncPoint.applyOperation(operation, writesCache,
         /*serverCache=*/ null);
     };
     /**
@@ -9908,12 +9908,12 @@ var SyncTree = /** @class */ (function () {
      *
      * NOTES:
      * - Descendant SyncPoints will be visited first (since we raise events depth-first).
-  
+
      * - We call applyOperation() on each SyncPoint passing three things:
      *   1. A version of the Operation that has been made relative to the SyncPoint location.
      *   2. A WriteTreeRef of any writes we have cached at the SyncPoint location.
      *   3. A snapshot Node with cached server data, if we have it.
-  
+
      * - We concatenate all of the events returned by each SyncPoint and return the result.
      *
      * @param {!Operation} operation
@@ -9921,7 +9921,7 @@ var SyncTree = /** @class */ (function () {
      * @private
      */
     SyncTree.prototype.applyOperationToSyncPoints_ = function (operation) {
-        return this.applyOperationHelper_(operation, this.syncPointTree_, 
+        return this.applyOperationHelper_(operation, this.syncPointTree_,
         /*serverCache=*/ null, this.pendingWriteTree_.childWrites(Path.Empty));
     };
     /**
@@ -10066,7 +10066,7 @@ var AuthTokenProvider = /** @class */ (function () {
      * @return {!Promise<FirebaseAuthTokenData>}
      */
     AuthTokenProvider.prototype.getToken = function (forceRefresh) {
-        return this.app_['INTERNAL']['getToken'](forceRefresh).then(null, 
+        return this.app_['INTERNAL']['getToken'](forceRefresh).then(null,
         // .catch
         function (error$$1) {
             // TODO: Need to figure out all the cases this is raised and whether
@@ -12783,10 +12783,10 @@ var PersistentConnection = /** @class */ (function (_super) {
     PersistentConnection.prototype.onDataPush_ = function (action, body) {
         this.log_('handleServerMessage', action, body);
         if (action === 'd')
-            this.onDataUpdate_(body[ /*path*/'p'], body[ /*data*/'d'], 
+            this.onDataUpdate_(body[ /*path*/'p'], body[ /*data*/'d'],
             /*isMerge*/ false, body['t']);
         else if (action === 'm')
-            this.onDataUpdate_(body[ /*path*/'p'], body[ /*data*/'d'], 
+            this.onDataUpdate_(body[ /*path*/'p'], body[ /*data*/'d'],
             /*isMerge=*/ true, body['t']);
         else if (action === 'c')
             this.onListenRevoked_(body[ /*path*/'p'], body[ /*query*/'q']);
@@ -12927,7 +12927,7 @@ var PersistentConnection = /** @class */ (function (_super) {
                 if (!canceled_1) {
                     log('getToken() completed. Creating connection.');
                     self_1.authToken_ = result && result.accessToken;
-                    connection_1 = new Connection(connId_1, self_1.repoInfo_, onDataMessage_1, onReady_1, onDisconnect_1, 
+                    connection_1 = new Connection(connId_1, self_1.repoInfo_, onDataMessage_1, onReady_1, onDisconnect_1,
                     /* onKill= */ function (reason) {
                         warn(reason + ' (' + self_1.repoInfo_.toString() + ')');
                         self_1.interrupt(SERVER_KILL_INTERRUPT_REASON);
@@ -14679,7 +14679,7 @@ var Reference = /** @class */ (function (_super) {
         validateFirebaseDataArg('Reference.set', 1, newVal, this.path, false);
         util.validateCallback('Reference.set', 2, onComplete, true);
         var deferred = new util.Deferred();
-        this.repo.setWithPriority(this.path, newVal, 
+        this.repo.setWithPriority(this.path, newVal,
         /*priority=*/ null, deferred.wrapCallback(onComplete));
         return deferred.promise;
     };
@@ -16045,7 +16045,7 @@ var TEST_ACCESS = /*#__PURE__*/Object.freeze({
 var ServerValue = Database.ServerValue;
 function registerDatabase(instance) {
     // Register the Database Service with the 'firebase' namespace.
-    var namespace = instance.INTERNAL.registerService('database', function (app, unused, url) { return RepoManager.getInstance().databaseFromApp(app, url); }, 
+    var namespace = instance.INTERNAL.registerService('database', function (app, unused, url) { return RepoManager.getInstance().databaseFromApp(app, url); },
     // firebase.database namespace properties
     {
         Reference: Reference,
@@ -19693,18 +19693,18 @@ var QueryPurpose;
 var QueryData = /** @class */ (function () {
     function QueryData(
     /** The query being listened to. */
-    query, 
+    query,
     /**
      * The target ID to which the query corresponds; Assigned by the
      * LocalStore for user listens and by the SyncEngine for limbo watches.
      */
-    targetId, 
+    targetId,
     /** The purpose of the query. */
-    purpose, 
+    purpose,
     /** The sequence number of the last transaction during which this query data was modified */
-    sequenceNumber, 
+    sequenceNumber,
     /** The latest snapshot version seen for this target. */
-    snapshotVersion, 
+    snapshotVersion,
     /**
      * An opaque, server-assigned token that allows watching a query to be
      * resumed after disconnecting without retransmitting all the data that
@@ -19819,7 +19819,7 @@ var MutationResult = /** @class */ (function () {
      * Note that these versions can be different: No-op writes will not change
      * the updateTime even though the commitTime advances.
      */
-    version, 
+    version,
     /**
      * The resulting fields returned from the backend after a
      * TransformMutation has been committed. Contains one FieldValue for each
@@ -20750,21 +20750,21 @@ var RemoteEvent = /** @class */ (function () {
     /**
      * The snapshot version this event brings us up to, or MIN if not set.
      */
-    snapshotVersion, 
+    snapshotVersion,
     /**
      * A map from target to changes to the target. See TargetChange.
      */
-    targetChanges, 
+    targetChanges,
     /**
      * A set of targets that is known to be inconsistent. Listens for these
      * targets should be re-established without resume tokens.
      */
-    targetMismatches, 
+    targetMismatches,
     /**
      * A set of which documents have changed or been deleted, along with the
      * doc's new values (if not deleted).
      */
-    documentUpdates, 
+    documentUpdates,
     /**
      * A set of which document updates are due only to limbo resolution targets.
      */
@@ -20805,23 +20805,23 @@ var TargetChange = /** @class */ (function () {
      * query. The resume token essentially identifies a point in time from which
      * the server should resume sending results.
      */
-    resumeToken, 
+    resumeToken,
     /**
      * The "current" (synced) status of this target. Note that "current"
      * has special meaning in the RPC protocol that implies that a target is
      * both up-to-date and consistent with the rest of the watch stream.
      */
-    current, 
+    current,
     /**
      * The set of documents that were newly assigned to this target as part of
      * this remote event.
      */
-    addedDocuments, 
+    addedDocuments,
     /**
      * The set of documents that were already assigned to this target but received
      * an update during this remote event.
      */
-    modifiedDocuments, 
+    modifiedDocuments,
     /**
      * The set of documents that were removed from this target as part of this
      * remote event.
@@ -21164,11 +21164,11 @@ var ViewSnapshot = /** @class */ (function () {
 var DocumentWatchChange = /** @class */ (function () {
     function DocumentWatchChange(
     /** The new document applies to all of these targets. */
-    updatedTargetIds, 
+    updatedTargetIds,
     /** The new document is removed from all of these targets. */
-    removedTargetIds, 
+    removedTargetIds,
     /** The key of the document for this change. */
-    key, 
+    key,
     /**
      * The new document or NoDocument if it was deleted. Is null if the
      * document went out of view without the server sending a new document.
@@ -21199,16 +21199,16 @@ var WatchTargetChangeState;
 var WatchTargetChange = /** @class */ (function () {
     function WatchTargetChange(
     /** What kind of change occurred to the watch target. */
-    state, 
+    state,
     /** The target IDs that were added/removed/set. */
-    targetIds, 
+    targetIds,
     /**
      * An opaque, server-assigned token that allows watching a query to be
      * resumed after disconnecting without retransmitting all the data that
      * matches the query. The resume token essentially identifies a point in
      * time from which the server should resume sending results.
      */
-    resumeToken, 
+    resumeToken,
     /** An RPC error indicating why the watch failed. */
     cause) {
         if (resumeToken === void 0) { resumeToken = emptyByteString(); }
@@ -23635,7 +23635,7 @@ var WebChannelConnection = /** @class */ (function () {
                 // (and only errors) to be wrapped in an extra array. To be forward
                 // compatible with the bug we need to check either condition. The latter
                 // can be removed once the fix has been rolled out.
-                var error$$1 = 
+                var error$$1 =
                 // tslint:disable-next-line:no-any msgData.error is not typed.
                 msgData.error || (msgData[0] && msgData[0].error);
                 if (error$$1) {
@@ -24154,7 +24154,7 @@ var QueryListener = /** @class */ (function () {
                     docChanges.push(docChange);
                 }
             }
-            snap = new ViewSnapshot(snap.query, snap.docs, snap.oldDocs, docChanges, snap.mutatedKeys, snap.fromCache, snap.syncStateChanged, 
+            snap = new ViewSnapshot(snap.query, snap.docs, snap.oldDocs, docChanges, snap.mutatedKeys, snap.fromCache, snap.syncStateChanged,
             /* excludesMetadataChanges= */ true);
         }
         if (!this.raisedInitialEvent) {
@@ -24694,7 +24694,7 @@ var RemovedLimboDocument = /** @class */ (function () {
  * the query filters and limits to determine the most correct possible results.
  */
 var View = /** @class */ (function () {
-    function View(query, 
+    function View(query,
     /** Documents included in the remote target */
     _syncedDocuments) {
         this.query = query;
@@ -24941,7 +24941,7 @@ var View = /** @class */ (function () {
             return { limboChanges: limboChanges };
         }
         else {
-            var snap = new ViewSnapshot(this.query, docChanges.documentSet, oldDocs, changes, docChanges.mutatedKeys, newSyncState === SyncState.Local, syncStateChanged, 
+            var snap = new ViewSnapshot(this.query, docChanges.documentSet, oldDocs, changes, docChanges.mutatedKeys, newSyncState === SyncState.Local, syncStateChanged,
             /* excludesMetadataChanges= */ false);
             return {
                 snapshot: snap,
@@ -24965,7 +24965,7 @@ var View = /** @class */ (function () {
                 changeSet: new DocumentChangeSet(),
                 mutatedKeys: this.mutatedKeys,
                 needsRefill: false
-            }, 
+            },
             /* updateLimboDocuments= */ false);
         }
         else {
@@ -25197,7 +25197,7 @@ var MutationBatch = /** @class */ (function () {
 }());
 /** The result of applying a mutation batch to the backend. */
 var MutationBatchResult = /** @class */ (function () {
-    function MutationBatchResult(batch, commitVersion, mutationResults, streamToken, 
+    function MutationBatchResult(batch, commitVersion, mutationResults, streamToken,
     /**
      * A pre-computed mapping from each mutated document to the resulting
      * version.
@@ -25468,7 +25468,7 @@ var DbTimestamp = /** @class */ (function () {
  * "stealing" the primary lease
  */
 var DbPrimaryClient = /** @class */ (function () {
-    function DbPrimaryClient(ownerId, 
+    function DbPrimaryClient(ownerId,
     /** Whether to allow shared access from multiple tabs. */
     allowTabSynchronization, leaseTimestampMs) {
         this.ownerId = ownerId;
@@ -25504,14 +25504,14 @@ var DbMutationQueue = /** @class */ (function () {
     /**
      * The normalized user ID to which this queue belongs.
      */
-    userId, 
+    userId,
     /**
      * An identifier for the highest numbered batch that has been acknowledged
      * by the server. All MutationBatches in this queue with batchIds less
      * than or equal to this value are considered to have been acknowledged by
      * the server.
      */
-    lastAcknowledgedBatchId, 
+    lastAcknowledgedBatchId,
     /**
      * A stream token that was previously sent by the server.
      *
@@ -25544,16 +25544,16 @@ var DbMutationBatch = /** @class */ (function () {
     /**
      * The normalized user ID to which this batch belongs.
      */
-    userId, 
+    userId,
     /**
      * An identifier for this batch, allocated using an auto-generated key.
      */
-    batchId, 
+    batchId,
     /**
      * The local write time of the batch, stored as milliseconds since the
      * epoch.
      */
-    localWriteTimeMs, 
+    localWriteTimeMs,
     /**
      * A list of mutations to apply. All mutations will be applied atomically.
      *
@@ -25692,17 +25692,17 @@ var DbRemoteDocument = /** @class */ (function () {
      * not known, but it is known that a document exists at the specified
      * version (e.g. it had a successful update applied to it)
      */
-    unknownDocument, 
+    unknownDocument,
     /**
      * Set to an instance of a DbNoDocument if it is known that no document
      * exists.
      */
-    noDocument, 
+    noDocument,
     /**
      * Set to an instance of a Document if there's a cached version of the
      * document.
      */
-    document, 
+    document,
     /**
      * Documents that were written to the remote document store based on
      * a write acknowledgment are marked with `hasCommittedMutations`. These
@@ -25737,17 +25737,17 @@ var DbTarget = /** @class */ (function () {
      * queryId which can be used by referenced data structures (e.g.
      * indexes) to minimize the on-disk cost.
      */
-    targetId, 
+    targetId,
     /**
      * The canonical string representing this query. This is not unique.
      */
-    canonicalId, 
+    canonicalId,
     /**
      * The last readTime received from the Watch Service for this query.
      *
      * This is the same value as TargetChange.read_time in the protos.
      */
-    readTime, 
+    readTime,
     /**
      * An opaque, server-assigned token that allows watching a query to be
      * resumed after disconnecting without retransmitting all the data
@@ -25765,7 +25765,7 @@ var DbTarget = /** @class */ (function () {
      *
      * This is the same value as TargetChange.resume_token in the protos.
      */
-    resumeToken, 
+    resumeToken,
     /**
      * A sequence number representing the last time this query was
      * listened to, used for garbage collection purposes.
@@ -25780,7 +25780,7 @@ var DbTarget = /** @class */ (function () {
      * lastListenSequenceNumber is updated every time the query is
      * listened to.
      */
-    lastListenSequenceNumber, 
+    lastListenSequenceNumber,
     /**
      * The query for this target.
      *
@@ -25819,7 +25819,7 @@ var DbTargetDocument = /** @class */ (function () {
     /**
      * The targetId identifying a target.
      */
-    targetId, 
+    targetId,
     /**
      * The path to the document, as encoded in the key.
      */
@@ -25850,13 +25850,13 @@ var DbTargetGlobal = /** @class */ (function () {
      *
      * See DbTarget.targetId.
      */
-    highestTargetId, 
+    highestTargetId,
     /**
      * The highest numbered lastListenSequenceNumber across all targets.
      *
      * See DbTarget.lastListenSequenceNumber.
      */
-    highestListenSequenceNumber, 
+    highestListenSequenceNumber,
     /**
      * A global snapshot version representing the last consistent snapshot we
      * received from the backend. This is monotonically increasing and any
@@ -25865,7 +25865,7 @@ var DbTargetGlobal = /** @class */ (function () {
      * until the backend has caught up to this snapshot version again. This
      * prevents our cache from ever going backwards in time.
      */
-    lastRemoteSnapshotVersion, 
+    lastRemoteSnapshotVersion,
     /**
      * The number of targets persisted.
      */
@@ -25908,8 +25908,8 @@ function dropQueryCache(db) {
 function writeEmptyTargetGlobalEntry(txn) {
     var globalStore = txn.store(DbTargetGlobal.store);
     var metadata = new DbTargetGlobal(
-    /*highestTargetId=*/ 0, 
-    /*lastListenSequenceNumber=*/ 0, SnapshotVersion.MIN.toTimestamp(), 
+    /*highestTargetId=*/ 0,
+    /*lastListenSequenceNumber=*/ 0, SnapshotVersion.MIN.toTimestamp(),
     /*targetCount=*/ 0);
     return globalStore.put(DbTargetGlobal.key, metadata);
 }
@@ -25947,13 +25947,13 @@ function createRemoteDocumentChangesStore(db) {
 var DbClientMetadata = /** @class */ (function () {
     function DbClientMetadata(
     /** The auto-generated client id assigned at client startup. */
-    clientId, 
+    clientId,
     /** The last time this state was updated. */
-    updateTimeMs, 
+    updateTimeMs,
     /** Whether the client's network connection is enabled. */
-    networkEnabled, 
+    networkEnabled,
     /** Whether this client is running in a foreground tab. */
-    inForeground, 
+    inForeground,
     /**
      * The last change read from the DbRemoteDocumentChanges store.
      * Can be undefined for backwards compatibility.
@@ -26374,7 +26374,7 @@ var IndexedDbMutationQueue = /** @class */ (function () {
             .get(this.userId)
             .next(function (metadata) {
             return (metadata ||
-                new DbMutationQueue(_this.userId, BATCHID_UNKNOWN, 
+                new DbMutationQueue(_this.userId, BATCHID_UNKNOWN,
                 /*lastStreamToken=*/ ''));
         });
     };
@@ -27055,8 +27055,8 @@ var IndexedDbQueryCache = /** @class */ (function () {
     };
     IndexedDbQueryCache.prototype.removeMatchingKeysForTargetId = function (txn, targetId) {
         var store = documentTargetStore(txn);
-        var range = IDBKeyRange.bound([targetId], [targetId + 1], 
-        /*lowerOpen=*/ false, 
+        var range = IDBKeyRange.bound([targetId], [targetId + 1],
+        /*lowerOpen=*/ false,
         /*upperOpen=*/ true);
         return this.notifyGCForRemovedKeys(txn, range).next(function () {
             return store.delete(range);
@@ -27082,8 +27082,8 @@ var IndexedDbQueryCache = /** @class */ (function () {
         }
     };
     IndexedDbQueryCache.prototype.getMatchingKeysForTargetId = function (txn, targetId) {
-        var range = IDBKeyRange.bound([targetId], [targetId + 1], 
-        /*lowerOpen=*/ false, 
+        var range = IDBKeyRange.bound([targetId], [targetId + 1],
+        /*lowerOpen=*/ false,
         /*upperOpen=*/ true);
         var store = documentTargetStore(txn);
         var result = documentKeySet();
@@ -27103,8 +27103,8 @@ var IndexedDbQueryCache = /** @class */ (function () {
     IndexedDbQueryCache.prototype.containsKey = function (txn, key) {
         assert(txn !== null, 'Persistence Transaction cannot be null for query cache containsKey');
         var path = encode(key.path);
-        var range = IDBKeyRange.bound([path], [immediateSuccessor(path)], 
-        /*lowerOpen=*/ false, 
+        var range = IDBKeyRange.bound([path], [immediateSuccessor(path)],
+        /*lowerOpen=*/ false,
         /*upperOpen=*/ true);
         var count = 0;
         return documentTargetStore(txn)
@@ -27274,7 +27274,7 @@ var IndexedDbRemoteDocumentCache = /** @class */ (function () {
         assert(this.keepDocumentChangeLog, 'Can only call getNewDocumentChanges() when document change log is enabled');
         var changedKeys = documentKeySet();
         var changedDocs = maybeDocumentMap();
-        var range = IDBKeyRange.lowerBound(this._lastProcessedDocumentChangeId, 
+        var range = IDBKeyRange.lowerBound(this._lastProcessedDocumentChangeId,
         /*lowerOpen=*/ true);
         // TODO(b/114228464): Another client may have garbage collected the remote
         // document changelog if our client was throttled for more than 30 minutes.
@@ -27372,7 +27372,7 @@ var LocalSerializer = /** @class */ (function () {
             var doc = this.remoteSerializer.toDocument(maybeDoc);
             var hasCommittedMutations = maybeDoc.hasCommittedMutations;
             return new DbRemoteDocument(
-            /* unknownDocument= */ null, 
+            /* unknownDocument= */ null,
             /* noDocument= */ null, doc, hasCommittedMutations);
         }
         else if (maybeDoc instanceof NoDocument) {
@@ -27380,15 +27380,15 @@ var LocalSerializer = /** @class */ (function () {
             var readTime = this.toDbTimestamp(maybeDoc.version);
             var hasCommittedMutations = maybeDoc.hasCommittedMutations;
             return new DbRemoteDocument(
-            /* unknownDocument= */ null, new DbNoDocument(path, readTime), 
+            /* unknownDocument= */ null, new DbNoDocument(path, readTime),
             /* document= */ null, hasCommittedMutations);
         }
         else if (maybeDoc instanceof UnknownDocument) {
             var path = maybeDoc.key.path.toArray();
             var readTime = this.toDbTimestamp(maybeDoc.version);
-            return new DbRemoteDocument(new DbUnknownDocument(path, readTime), 
-            /* noDocument= */ null, 
-            /* document= */ null, 
+            return new DbRemoteDocument(new DbUnknownDocument(path, readTime),
+            /* noDocument= */ null,
+            /* document= */ null,
             /* hasCommittedMutations= */ true);
         }
         else {
@@ -27925,7 +27925,7 @@ var IndexedDbPersistence = /** @class */ (function () {
         this.document = platform.document;
         this.allowTabSynchronization = multiClientParams !== undefined;
         this.queryCache = new IndexedDbQueryCache(this.serializer);
-        this.remoteDocumentCache = new IndexedDbRemoteDocumentCache(this.serializer, 
+        this.remoteDocumentCache = new IndexedDbRemoteDocumentCache(this.serializer,
         /*keepDocumentChangeLog=*/ this.allowTabSynchronization);
         if (platform.window && platform.window.localStorage) {
             this.window = platform.window;
@@ -28574,12 +28574,12 @@ var QueryView = /** @class */ (function () {
     /**
      * The query itself.
      */
-    query, 
+    query,
     /**
      * The target number created by the client that is used in the watch
      * stream to identify this query.
      */
-    targetId, 
+    targetId,
     /**
      * The view is responsible for computing the final merged truth of what
      * docs are in the query. It gets notified of local and remote changes,
@@ -28615,7 +28615,7 @@ var LimboResolution = /** @class */ (function () {
  * global async queue.
  */
 var SyncEngine = /** @class */ (function () {
-    function SyncEngine(localStore, remoteStore, 
+    function SyncEngine(localStore, remoteStore,
     // PORTING NOTE: Manages state synchronization in multi-tab environments.
     sharedClientState, currentUser) {
         this.localStore = localStore;
@@ -28710,7 +28710,7 @@ var SyncEngine = /** @class */ (function () {
                 var view = new View(query, remoteKeys);
                 var viewDocChanges = view.computeInitialChanges(docs);
                 var synthesizedTargetChange = TargetChange.createSynthesizedTargetChangeForCurrentChange(queryData.targetId, current && _this.onlineState !== OnlineState.Offline);
-                var viewChange = view.applyChanges(viewDocChanges, 
+                var viewChange = view.applyChanges(viewDocChanges,
                 /* updateLimboDocuments= */ _this.isPrimary === true, synthesizedTargetChange);
                 assert(viewChange.limboChanges.length === 0, 'View returned limbo docs before target ack from the server.');
                 assert(!!viewChange.snapshot, 'applyChanges for new view should always return a snapshot');
@@ -28781,7 +28781,7 @@ var SyncEngine = /** @class */ (function () {
                     case 3: return [4 /*yield*/, this.removeAndCleanupQuery(queryView)];
                     case 4:
                         _a.sent();
-                        return [4 /*yield*/, this.localStore.releaseQuery(query, 
+                        return [4 /*yield*/, this.localStore.releaseQuery(query,
                             /*keepPersistedQueryData=*/ true)];
                     case 5:
                         _a.sent();
@@ -28954,8 +28954,8 @@ var SyncEngine = /** @class */ (function () {
                         documentUpdates = new SortedMap(DocumentKey.comparator);
                         documentUpdates = documentUpdates.insert(limboKey, new NoDocument(limboKey, SnapshotVersion.forDeletedDoc()));
                         resolvedLimboDocuments = documentKeySet().add(limboKey);
-                        event_1 = new RemoteEvent(SnapshotVersion.MIN, 
-                        /* targetChanges= */ {}, 
+                        event_1 = new RemoteEvent(SnapshotVersion.MIN,
+                        /* targetChanges= */ {},
                         /* targetMismatches= */ new SortedSet(primitiveComparator), documentUpdates, resolvedLimboDocuments);
                         return [2 /*return*/, this.applyRemoteEvent(event_1)];
                     case 1:
@@ -29230,7 +29230,7 @@ var SyncEngine = /** @class */ (function () {
                             })
                                 .then(function (viewDocChanges) {
                                 var targetChange = remoteEvent && remoteEvent.targetChanges[queryView.targetId];
-                                var viewChange = queryView.view.applyChanges(viewDocChanges, 
+                                var viewChange = queryView.view.applyChanges(viewDocChanges,
                                 /* updateLimboDocuments= */ _this.isPrimary === true, targetChange);
                                 return _this.updateTrackedLimbos(queryView.targetId, viewChange.limboChanges).then(function () {
                                     if (viewChange.snapshot) {
@@ -29397,7 +29397,7 @@ var SyncEngine = /** @class */ (function () {
                             // in LocalStore (as the resume token and the snapshot version
                             // might have changed) and reconcile their views with the persisted
                             // state (the list of syncedDocuments may have gotten out of sync).
-                            return [4 /*yield*/, this.localStore.releaseQuery(queryView.query, 
+                            return [4 /*yield*/, this.localStore.releaseQuery(queryView.query,
                                 /*keepPersistedQueryData=*/ true)];
                         case 1:
                             // For queries that have a local View, we need to update their state
@@ -29424,7 +29424,7 @@ var SyncEngine = /** @class */ (function () {
                             return [4 /*yield*/, this.localStore.allocateQuery(query)];
                         case 6:
                             queryData = _a.sent();
-                            return [4 /*yield*/, this.initializeViewAndComputeSnapshot(queryData, 
+                            return [4 /*yield*/, this.initializeViewAndComputeSnapshot(queryData,
                                 /*current=*/ false)];
                         case 7:
                             _a.sent();
@@ -29480,7 +29480,7 @@ var SyncEngine = /** @class */ (function () {
                         return [4 /*yield*/, this.removeAndCleanupQuery(queryView)];
                     case 4:
                         _b.sent();
-                        return [4 /*yield*/, this.localStore.releaseQuery(queryView.query, 
+                        return [4 /*yield*/, this.localStore.releaseQuery(queryView.query,
                             /*keepPersistedQueryData=*/ true)];
                     case 5:
                         _b.sent();
@@ -29518,7 +29518,7 @@ var SyncEngine = /** @class */ (function () {
                         return [4 /*yield*/, this.localStore.allocateQuery(query)];
                     case 3:
                         queryData = _b.sent();
-                        return [4 /*yield*/, this.initializeViewAndComputeSnapshot(queryData, 
+                        return [4 /*yield*/, this.initializeViewAndComputeSnapshot(queryData,
                             /*current=*/ false)];
                     case 4:
                         _b.sent();
@@ -29961,7 +29961,7 @@ var LOG_TAG$4 = 'LocalStore';
 var LocalStore = /** @class */ (function () {
     function LocalStore(
     /** Manages our in-memory or durable persistence. */
-    persistence, initialUser, 
+    persistence, initialUser,
     /**
      * The garbage collector collects documents that should no longer be
      * cached (e.g. if they are no longer retained by the above reference sets
@@ -31186,22 +31186,22 @@ var ExponentialBackoff = /** @class */ (function () {
     /**
      * The AsyncQueue to run backoff operations on.
      */
-    queue, 
+    queue,
     /**
      * The ID to use when scheduling backoff operations on the AsyncQueue.
      */
-    timerId, 
+    timerId,
     /**
      * The initial delay (used as the base delay on the first retry attempt).
      * Note that jitter will still be applied, so the actual delay could be as
      * little as 0.5*initialDelayMs.
      */
-    initialDelayMs, 
+    initialDelayMs,
     /**
      * The multiplier to use to determine the extended base delay after each
      * attempt.
      */
-    backoffFactor, 
+    backoffFactor,
     /**
      * The maximum base delay after which no further backoff is performed.
      * Note that jitter will still be applied, so the actual delay could be as
@@ -32266,7 +32266,7 @@ var RemoteStore = /** @class */ (function () {
     /**
      * The local store, used to fill the write pipeline with outbound mutations.
      */
-    localStore, 
+    localStore,
     /** The client-side proxy for interacting with the backend. */
     datastore, asyncQueue, onlineStateHandler) {
         this.localStore = localStore;
@@ -33696,7 +33696,7 @@ var DOM_EXCEPTION_QUOTA_EXCEEDED = 22;
  * async queue that is shared by all of the other components in the system.
  */
 var FirestoreClient = /** @class */ (function () {
-    function FirestoreClient(platform, databaseInfo, credentials, 
+    function FirestoreClient(platform, databaseInfo, credentials,
     /**
      * Asynchronous queue responsible for all of our internal processing. When
      * we get incoming work from the user (via public API) or the network
@@ -33994,7 +33994,7 @@ var FirestoreClient = /** @class */ (function () {
         return this.asyncQueue.enqueue(function () { return tslib_1.__awaiter(_this, void 0, void 0, function () {
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
+                    case 0:
                     // PORTING NOTE: LocalStore does not need an explicit shutdown on web.
                     return [4 /*yield*/, this.remoteStore.shutdown()];
                     case 1:
@@ -34060,7 +34060,7 @@ var FirestoreClient = /** @class */ (function () {
             var remoteKeys = documentKeySet();
             var view = new View(query, remoteKeys);
             var viewDocChanges = view.computeDocChanges(docs);
-            return view.applyChanges(viewDocChanges, 
+            return view.applyChanges(viewDocChanges,
             /* updateLimboDocuments= */ false).snapshot;
         });
     };
@@ -34601,14 +34601,14 @@ var ParseContext = /** @class */ (function () {
     }
     ParseContext.prototype.childContextForField = function (field) {
         var childPath = this.path == null ? null : this.path.child(field);
-        var context = new ParseContext(this.dataSource, this.methodName, childPath, 
+        var context = new ParseContext(this.dataSource, this.methodName, childPath,
         /*arrayElement=*/ false, this.fieldTransforms, this.fieldMask);
         context.validatePathSegment(field);
         return context;
     };
     ParseContext.prototype.childContextForFieldPath = function (field) {
         var childPath = this.path == null ? null : this.path.child(field);
-        var context = new ParseContext(this.dataSource, this.methodName, childPath, 
+        var context = new ParseContext(this.dataSource, this.methodName, childPath,
         /*arrayElement=*/ false, this.fieldTransforms, this.fieldMask);
         context.validatePath();
         return context;
@@ -34616,8 +34616,8 @@ var ParseContext = /** @class */ (function () {
     ParseContext.prototype.childContextForArray = function (index) {
         // TODO(b/34871131): We don't support array paths right now; so make path
         // null.
-        return new ParseContext(this.dataSource, this.methodName, 
-        /*path=*/ null, 
+        return new ParseContext(this.dataSource, this.methodName,
+        /*path=*/ null,
         /*arrayElement=*/ true, this.fieldTransforms, this.fieldMask);
     };
     ParseContext.prototype.createError = function (reason) {
@@ -34677,7 +34677,7 @@ var UserDataConverter = /** @class */ (function () {
         var context = new ParseContext(UserDataSource.Set, methodName, FieldPath.EMPTY_PATH);
         validatePlainObject('Data must be an object, but it was:', context, input);
         var updateData = this.parseData(input, context);
-        return new ParsedSetData(updateData, 
+        return new ParsedSetData(updateData,
         /* fieldMask= */ null, context.fieldTransforms);
     };
     /** Parse document data from a set() call with '{merge:true}'. */
@@ -35361,13 +35361,13 @@ var Transaction$1 = /** @class */ (function () {
             }
             var doc = docs[0];
             if (doc instanceof NoDocument) {
-                return new DocumentSnapshot(_this._firestore, ref._key, null, 
-                /* fromCache= */ false, 
+                return new DocumentSnapshot(_this._firestore, ref._key, null,
+                /* fromCache= */ false,
                 /* hasPendingWrites= */ false);
             }
             else if (doc instanceof Document) {
-                return new DocumentSnapshot(_this._firestore, ref._key, doc, 
-                /* fromCache= */ false, 
+                return new DocumentSnapshot(_this._firestore, ref._key, doc,
+                /* fromCache= */ false,
                 /* hasPendingWrites= */ false);
             }
             else {
@@ -35636,7 +35636,7 @@ var DocumentReference = /** @class */ (function () {
                     .ensureClientConfigured()
                     .getDocumentFromLocalCache(_this._key)
                     .then(function (doc) {
-                    resolve(new DocumentSnapshot(_this.firestore, _this._key, doc, 
+                    resolve(new DocumentSnapshot(_this.firestore, _this._key, doc,
                     /*fromCache=*/ true, doc instanceof Document ? doc.hasLocalMutations : false));
                 }, reject);
             }
@@ -35904,7 +35904,7 @@ var Query$1 = /** @class */ (function () {
             fields[_i - 1] = arguments[_i];
         }
         validateAtLeastNumberOfArgs('Query.startAt', arguments, 1);
-        var bound = this.boundFromDocOrFields('Query.startAt', docOrField, fields, 
+        var bound = this.boundFromDocOrFields('Query.startAt', docOrField, fields,
         /*before=*/ true);
         return new Query$$1(this._query.withStartAt(bound), this.firestore);
     };
@@ -35914,7 +35914,7 @@ var Query$1 = /** @class */ (function () {
             fields[_i - 1] = arguments[_i];
         }
         validateAtLeastNumberOfArgs('Query.startAfter', arguments, 1);
-        var bound = this.boundFromDocOrFields('Query.startAfter', docOrField, fields, 
+        var bound = this.boundFromDocOrFields('Query.startAfter', docOrField, fields,
         /*before=*/ false);
         return new Query$$1(this._query.withStartAt(bound), this.firestore);
     };
@@ -35924,7 +35924,7 @@ var Query$1 = /** @class */ (function () {
             fields[_i - 1] = arguments[_i];
         }
         validateAtLeastNumberOfArgs('Query.endBefore', arguments, 1);
-        var bound = this.boundFromDocOrFields('Query.endBefore', docOrField, fields, 
+        var bound = this.boundFromDocOrFields('Query.endBefore', docOrField, fields,
         /*before=*/ true);
         return new Query$$1(this._query.withEndAt(bound), this.firestore);
     };
@@ -35934,7 +35934,7 @@ var Query$1 = /** @class */ (function () {
             fields[_i - 1] = arguments[_i];
         }
         validateAtLeastNumberOfArgs('Query.endAt', arguments, 1);
-        var bound = this.boundFromDocOrFields('Query.endAt', docOrField, fields, 
+        var bound = this.boundFromDocOrFields('Query.endAt', docOrField, fields,
         /*before=*/ false);
         return new Query$$1(this._query.withEndAt(bound), this.firestore);
     };
@@ -37072,9 +37072,9 @@ function registerFunctions(instance) {
         // no-inline
         Functions: Service
     };
-    instance.INTERNAL.registerService(FUNCTIONS_TYPE, factory, namespaceExports, 
+    instance.INTERNAL.registerService(FUNCTIONS_TYPE, factory, namespaceExports,
     // We don't need to wait on any AppHooks.
-    undefined, 
+    undefined,
     // Allow multiple functions instances per app.
     true);
 }
@@ -38443,7 +38443,7 @@ var BaseController = /** @class */ (function () {
             var registration, pushSubscription;
             return tslib_1.__generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: 
+                    case 0:
                     // Delete the token details from the database.
                     return [4 /*yield*/, this.deleteTokenFromDB(token)];
                     case 1:
@@ -38460,7 +38460,7 @@ var BaseController = /** @class */ (function () {
                             return [2 /*return*/, pushSubscription.unsubscribe()];
                         }
                         _a.label = 4;
-                    case 4: 
+                    case 4:
                     // If there's no SW, consider it a success.
                     return [2 /*return*/, true];
                 }
@@ -42965,7 +42965,7 @@ function remove(array, elem) {
 }
 
 var RequestInfo = /** @class */ (function () {
-    function RequestInfo(url, method, 
+    function RequestInfo(url, method,
     /**
      * Returns the value with which to resolve the request's promise. Only called
      * if the request is successful. Throw from this function to reject the
@@ -44857,7 +44857,7 @@ function registerStorage(instance) {
         Storage: Service,
         Reference: Reference
     };
-    instance.INTERNAL.registerService(STORAGE_TYPE, factory, namespaceExports, undefined, 
+    instance.INTERNAL.registerService(STORAGE_TYPE, factory, namespaceExports, undefined,
     // Allow multiple storage instances per app.
     true);
 }
