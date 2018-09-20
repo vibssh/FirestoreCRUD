@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const browserify = require('browserify');
 const babelify = require('babelify');
 const source = require('vinyl-source-stream');
+const deploy = require('gulp-gh-pages');
 
 gulp.task('browserify', () => browserify()
   .require('src/js/index.js', {
@@ -17,3 +18,6 @@ gulp.task('browserify', () => browserify()
 gulp.task('default', () => {
   gulp.watch('./src/js/*.js', ['browserify']);
 });
+
+gulp.task('deploy', () => gulp.src('./dest/**/*')
+  .pipe(deploy()));

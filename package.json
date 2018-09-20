@@ -25,6 +25,7 @@
     "firebase": "^5.5.0",
     "firestore": "^1.1.6",
     "gulp": "^3.9.1",
+    "gulp-gh-pages": "^0.5.4",
     "redux": "^4.0.0",
     "uuid": "^3.3.2",
     "vinyl-source-stream": "^2.0.0",
