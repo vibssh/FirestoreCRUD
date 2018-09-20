@@ -13,7 +13,7 @@ firebase.initializeApp(settings.config);
 
 const db = require('./db');
 
-const collectionName = 'heartRate';
+const { collectionName } = settings.config;
 
 const form = document.querySelector('form[name="addHeartRate"]');
 

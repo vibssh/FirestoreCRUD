@@ -5,6 +5,7 @@ const config = {
   projectId: 'singledataentry',
   storageBucket: 'singledataentry.appspot.com',
   messagingSenderId: '784131644353',
+  collectionName: 'heartRate',
 };
 
 module.exports = {
