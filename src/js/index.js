@@ -7,7 +7,6 @@ import post from './postData';
 import update from './updateUI';
 import updateData from './updateData';
 import removeData from './removeData';
-
 // const main = require('./main');
 firebase.initializeApp(settings.config);
 
